@@ -1,0 +1,21 @@
+
+Git的基本使用
+
+
+常规做法:
+1. 首先点击fork按钮来建立一个属于自己的分支
+2. git clone https://github.com/username/leaftime.git ---clone自己的分支
+3. git remote add upstream https://github.com/huangxinms/leaftime.git ---将主干的代码克隆下来命名为upstream
+--------------
+4. 在你的代码上做任何的修改
+--------------
+5. git fetch --all   ---获取所有远程的更新
+6. git merge upstream/master  ---将远程的master最近的更新合并到本地的修改中
+
+7. git commit xxx xxx -m 'commit message'  
+8. git push origin "branchname"(or master)
+
+--------------
+9. pull request 提交更新
+
+如果同时处理多个分支的开发，可以在本地建立多个分支，具体到时候需要的时候再写把。
