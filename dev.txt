@@ -10,9 +10,9 @@ Git的基本使用
 4. 在你的代码上做任何的修改
 --------------
 5. git fetch --all   ---获取所有远程的更新
-6. git merge upstream/master  ---将远程的master最近的更新合并到本地的修改中
+6. git commit xxx xxx -m 'commit message'  
 
-7. git commit xxx xxx -m 'commit message'  
+7. git merge upstream/master  ---将远程的master最近的更新合并到本地的修改中
 8. git push origin "branchname"(or master)
 
 --------------
