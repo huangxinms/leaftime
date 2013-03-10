@@ -11,7 +11,7 @@
 }
 .subnav_top .menu ul li a{
     float:left;
-    background:url('../static/img/time_menu.gif') no-repeat scroll 0 0 transparent;
+    background:url('../img/time_menu.gif') no-repeat scroll 0 0 transparent;
     width:127px;
     height:39px;
     display:block;
