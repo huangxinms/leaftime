@@ -10,7 +10,7 @@ CREATE TABLE `user` (
 
 CREATE TABLE `user_config` (
   `user_id` int(11) NOT NULL,
-  `timezone` int(2) NOT NULL DEFAULT '8',
+  `timezone` tinyint(2) NOT NULL DEFAULT '8',
   `send_time` time NOT NULL DEFAULT '08:00:00',
   `include_entry` tinyint(1) NOT NULL DEFAULT '1',
   `frequency` char(1) NOT NULL DEFAULT 'd',
