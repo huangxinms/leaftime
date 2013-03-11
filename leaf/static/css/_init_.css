@@ -1,0 +1,57 @@
+/*
+ * Main style sheet for leaftime
+ * Author: Huang Xin
+ * Date:2013.03.11
+ */
+body{
+    background-color:#FCFBF9;
+    font-size:1.15em;
+    margin:0;
+    padding:0;
+}
+.header{
+    background:url('../img/bg_header.gif') repeat scroll 0 0 #649CC7;
+    height:78px;
+}
+.centerwrap{
+    margin:0 auto;
+    width:890px;
+}
+.logo{
+    float:left;
+    height:33px;
+    padding:23px 0 0 52px;
+}
+.centerwrapcenter{
+    margin:0 auto;
+    width:642px;
+}
+.contentwrap{
+    border-radius:10px 10px 10px 10px;
+    border-width:1px;
+    border-color:#F2F1EF;
+    border-style:solid;
+    background-color:#DEDDDC;
+}
+.content{
+    border-radius:10px 10px 10px 10px;
+    border-width:3px;
+    border-style:solid;
+    border-color:#F7F7F7;
+    background-color:#FFFFFF;
+    padding:38px 50px 21px 42px;
+    position:relative;
+}
+.article h2{
+    color:#A41100;
+    text-align:center;
+}
+.article h3{
+    color:#999999;
+    text-align:center;
+}
+.article .text{
+    padding-top:25px;
+    line-height:1.7em;
+}
+
