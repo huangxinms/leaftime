@@ -1,6 +1,7 @@
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(15) NOT NULL DEFAULT '',
+  `username` varchar(30) NOT NULL DEFAULT '',
   `email` varchar(63) NOT NULL DEFAULT '',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` char(1) NOT NULL DEFAULT '',
