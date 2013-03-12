@@ -5,6 +5,7 @@ from leaf import app
 from leaf import config
 
 import hello
+import user
 
 
 @app.before_request
