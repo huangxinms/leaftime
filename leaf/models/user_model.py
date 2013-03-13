@@ -1,5 +1,4 @@
 #-*- coding:utf-8 -*-
-from flask.ext.sqlalchemy import SQLAlchemy
 from leaf.extentions import db
 
 class UserQuery:

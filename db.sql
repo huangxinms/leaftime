@@ -19,7 +19,7 @@ CREATE TABLE `user_config` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='user configuration';
 
-CREATE TABLE `entry` (
+CREATE TABLE `note` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `title` varchar(255) CHARACTER SET ucs2 NOT NULL DEFAULT '',
@@ -28,4 +28,4 @@ CREATE TABLE `entry` (
   `content` text NOT NULL default '',
   PRIMARY KEY (`id`),
   KEY `author_entries` (`user_id`,`time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='entries';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='notes';
