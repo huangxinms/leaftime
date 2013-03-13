@@ -6,6 +6,7 @@ from leaf import config
 
 import hello
 import user
+import note
 
 
 @app.before_request

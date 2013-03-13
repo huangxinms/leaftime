@@ -27,8 +27,10 @@ class Note(db.Model):
         return "<Note id=%s, author_id=%s>" % (self.id, self.user_id)
 
     @classmethod
-    def create(cls, user_id, title, content, time, update_time):
-        note = cls(user_id, title, content, time, update_time)
+    def create(cls, user_id, title, content, time=None):
+        if not time:
+            time = datetime.datetime.now()
+        note = cls(user_id, title, content, time, None)
         db.session.add(note)
         db.session.commit()
         return note
