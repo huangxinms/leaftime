@@ -1,5 +1,4 @@
 #-*- coding:utf-8 -*-
-from flask.ext.sqlalchemy import SQLAlchemy
 from leaf.extentions import db
 
 class UserQuery:
@@ -23,8 +22,9 @@ class User(db.Model):
     status = db.Column('status',db.CHAR(1),nullable=False)
 
     @classmethod
-    def create(password,username,email,created_time,status):
-        user = User(password=password,username=username,email=email,created_time=created_time,       status=status)
+    def create(cls, password, username, email, create_time, status):
+        user = User(password=password, username=username, email=email,
+                    create_time=create_time, status=status)
         db.session.add(user)
         db.session.commit()
         return user
