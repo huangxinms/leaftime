@@ -9,8 +9,7 @@ class Note(db.Model):
     __tablename__ = 'note'
 
     id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
-    # TODO: add index on `user_id`
-    user_id = db.Column('user_id', db.Integer, nullable=False)
+    user_id = db.Column('user_id', db.Integer, nullable=False, key='user_id')
     title = db.Column('title', db.VARCHAR(255), nullable=False)
     time = db.Column('time', db.TIMESTAMP, nullable=False)
     update_time = db.Column('update_time', db.TIMESTAMP, nullable=True)
