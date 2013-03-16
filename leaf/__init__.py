@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 
 from flask import Flask
-from leaf.corelib.test import LoginManager
+from leaf.corelib.flask_login import LoginManager
 
 
 #-- create app --
