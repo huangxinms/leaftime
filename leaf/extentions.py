@@ -7,3 +7,4 @@ from leaf import app
 db = SQLAlchemy()
 db.init_app(app)
 db.app = app
+

@@ -1,5 +1,11 @@
 #-*- coding:utf-8 -*-
+
+from datetime import datetime
+
 from leaf.extentions import db
+
+USER_STATUS_NORMAL = ''
+USER_STATUS_SUICIDE = 's'
 
 class UserQuery:
     def get_by_username(self, username):
@@ -21,8 +27,12 @@ class User(db.Model):
     create_time = db.Column('create_time', db.TIMESTAMP, nullable=False)
     status = db.Column('status', db.CHAR(1), nullable=False)
 
+    def __repr__(self):
+        return '<User %s, %s(%s)>' % (self.id, self.username, self.email)
+
     @classmethod
-    def create(cls, password, username, email, create_time, status):
+    def create(cls, username, password, email, create_time=datetime.now(),
+            status=USER_STATUS_NORMAL):
         user = User(password=password, username=username, email=email,
                     create_time=create_time, status=status)
         db.session.add(user)
