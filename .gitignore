@@ -37,4 +37,6 @@ nosetests.xml
 #
 .Python
 include/
-*.sw[ap]
+*.sw[apo]
+
+leaf/local_config.py
