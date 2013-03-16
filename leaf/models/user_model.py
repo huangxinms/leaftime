@@ -29,15 +29,6 @@ class User(db.Model):
         db.session.commit()
         return user
 
-    def get_username(self):
-        return self.username
-
-    def get_email(self):
-        return self.email
-
-    def get_status(self):
-        return self.status
-
     def set_email(self,email):
         self.email = email
         db.session.commit()
