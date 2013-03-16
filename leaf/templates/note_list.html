@@ -1,6 +1,13 @@
+<html>
+<head>
+    <title>{{ user.email }} 的日记</title>
+</head>
 
+<body>
 {% for note in notes %}
-    {{ note. title }} <br>
+<a href="{{ url_for('note', note_id=note.id) }}">{{ note.title }} </a><br>
     >>> {{ note.content }} <br>
     <hr>
 {% endfor %}
+</body>
+</html>
