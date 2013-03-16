@@ -35,6 +35,18 @@ class User(db.Model):
     def get_email(self):
         return self.email
 
+    def get_status(self):
+        return self.status
+
     def set_email(self,email):
         self.email = email
         db.session.commit()
+
+    def set_status(self,status):
+        self.status = status
+        db.session.commit()
+
+    def check(self,password):
+        if self.password == password:
+            return True
+        return False
