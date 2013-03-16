@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from leaf.extentions import db
+from leaf import lm
 
 USER_STATUS_NORMAL = ''
 USER_STATUS_SUICIDE = 's'
@@ -14,6 +15,10 @@ class UserQuery:
 
     def get_by_email(self, email):
         user = User.query.filter_by(email=email).first()
+        return user
+
+    def get_by_id(self,id):
+        user = User.query.filter_by(id=id).first()
         return user
 
 
@@ -29,6 +34,18 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %s, %s(%s)>' % (self.id, self.username, self.email)
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.id
 
     @classmethod
     def create(cls, username, password, email, create_time=datetime.now(),

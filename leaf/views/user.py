@@ -5,6 +5,8 @@ from leaf import app
 from leaf.models.user_model import User
 from leaf.forms.user import LoginForm
 
+from leaf.corelib.flask_login import login_required,login_user
+
 @app.route('/login',methods=['GET','POST'])
 def login():
     if request.method == 'GET':
@@ -20,6 +22,7 @@ def login():
             else:
                 result = user.check(password)
                 if result:
+                    login_user(user)
                     return redirect(url_for('hello'))
                 else:
                     flash(u'用户名或密码错误')
