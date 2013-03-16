@@ -16,7 +16,7 @@ def login():
         if result.is_success:
             user = User.query_obj.get_by_email(email)
             if user is None:
-                flash('该邮箱尚未注册')
+                flash(u'该邮箱尚未注册')
             else:
                 result = user.check(password)
                 if result:
