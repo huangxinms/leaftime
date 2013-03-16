@@ -1,4 +1,6 @@
-CREATE TABLE `user` (
+CREATE DATABASE `leaftime`;
+use leaftime;
+CREATE TABLE IF NOT EXISTS `user`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(15) NOT NULL DEFAULT '',
   `username` varchar(30) NOT NULL DEFAULT '',
@@ -9,7 +11,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='account info';
 
-CREATE TABLE `user_config` (
+CREATE TABLE IF NOT EXISTS `user_config`(
   `user_id` int(11) NOT NULL,
   `timezone` tinyint(2) NOT NULL DEFAULT '8',
   `send_time` time NOT NULL DEFAULT '08:00:00',
@@ -19,13 +21,13 @@ CREATE TABLE `user_config` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='user configuration';
 
-CREATE TABLE `note` (
+CREATE TABLE IF NOT EXISTS `note`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `title` varchar(255) CHARACTER SET ucs2 NOT NULL DEFAULT '',
   `time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `content` text NOT NULL default '',
+  `content` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `author_entries` (`user_id`,`time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='notes';
