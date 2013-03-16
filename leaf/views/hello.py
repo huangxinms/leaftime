@@ -11,5 +11,5 @@ from leaf.models.user_model import User
 def hello():
     #User.create('123456', 'huangxin', 'huangxin@douban.com', datetime.datetime.now(), '')
     #User.query_obj.get_by_username('huangxin').set_email('huangxinms@gmail.com')
-    print User.query_obj.get_by_username('huangxin').get_email()
+    print User.query_obj.get_by_username('huangxin').email
     return render_template('hello.html')
