@@ -12,7 +12,7 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        result = LoginForm(email=email,password=password).validate()
+        result = LoginForm(email=email, password=password).validate()
         if result.is_success:
             user = User.query_obj.get_by_email(email)
             if user is None:
