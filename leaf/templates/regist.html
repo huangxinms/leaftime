@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Leaftime</title>
+        <link type="text/css" rel="stylesheet" media="screen" href="../static/css/_init_.css" />
+        <link type="text/css" rel="stylesheet" media="screen" href="../static/css/regist.css" />
+        <script type = 'text/javascript' src = '../static/js/jquery.min.js'></script>
+        <script type="text/javascript" src='../static/js/login.js'></script>
+    </head>
+    <body>
+        <div class="header">
+            <div class="centerwrap">
+                <div class="logo">
+                    <a href='/'><img src="../static/img/logo.jpg" /></a>
+                </div>
+                <div class="globalmenu"></div>
+            </div>
+        </div>
+        <div class="centerwrapcenter">
+            <div class="subnav_top">
+                <div class="regist">
+                    <h1>Regist</h1>
+                    <div class="centerwrap">
+                        <div class="box">
+                            <form method="post" action="/regist" id='regist_form'>
+                                <h2>Email Address</h2>
+                                <div class="wrap">
+                                    <input type="text" tabindex="1" name="email" class="email" id="email" value='Email Address' />
+                                    <input type='submit' value='' name='submit' id='submit' class='submit' />
+                                </div>
+                                <!--
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                    {% for message in messages %}
+                                    <div class="error">{{ message }}</div>
+                                    {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
+                                -->
+                                <div class="error" id="error_mes"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+        </div>
+    </body>
+    <style>
+    </style>
+</html>
+

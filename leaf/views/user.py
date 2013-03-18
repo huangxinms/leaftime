@@ -29,3 +29,8 @@ def login():
         else:
             flash(result.message)
     return redirect(url_for('login'))
+
+@app.route('/regist',methods=['GET','POST'])
+def regist():
+    if request.method == 'GET':
+        return render_template('regist.html')
