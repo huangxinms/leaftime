@@ -21,6 +21,10 @@ h2,h3,p{
     font-weight:normal;
 }
 
+a{
+    text-decoration:none;
+}
+
 .header{
     background:url('../img/bg_header.gif') repeat scroll 0 0 #649CC7;
     height:78px;
@@ -78,3 +82,20 @@ input.txt{
     color:#B21D1D;
     font-size:1.25em;
 }
+.globalmenu{
+    float:right;
+}
+.globalmenu a{
+    color:#FFFFFF;
+}
+.globalmenu ul{
+    padding-top:10px;
+    padding-right:55px;
+    list-style:none;
+    height:30px;
+}
+.globalmenu ul li{
+    float:right;
+    margin-left:25px;
+}
+
