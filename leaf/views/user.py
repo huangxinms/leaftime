@@ -5,7 +5,7 @@ from leaf import app
 from leaf.models.user_model import User
 from leaf.forms.user import LoginForm
 
-from leaf.corelib.flask_login import login_required,login_user
+from leaf.corelib.flask_login import login_required,login_user,logout_user
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -29,6 +29,11 @@ def login():
         else:
             flash(result.message)
     return redirect(url_for('login'))
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('regist'))
 
 @app.route('/regist',methods=['GET','POST'])
 def regist():
