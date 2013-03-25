@@ -4,16 +4,17 @@ from flask import render_template
 
 from leaf import app
 from leaf.models.note import Note
-from leaf.models.user_model import User
+from leaf.corelib.flask_login import get_user_id,login_required
 
 @app.route('/notes')
 def notes():
-    users = User.query.all()
-    user = users[0]
-    notes = Note.gets_by_author(user.id)
-    return render_template('note_list.html', notes=notes, user=user)
+    user_id = get_user_id()
+    notes = Note.query_obj.get_recent_note_by_user(user_id)
+    return render_template('note_list.html', notes=notes, user=user_id)
 
-@app.route('/note/<int:note_id>')
-def note(note_id):
-    note = Note.get(note_id)
+@app.route('/latest/')
+@login_required
+def note():
+    user_id = get_user_id()
+    note = Note.query_obj.get_recent_note_by_user(user_id)
     return render_template('note.html', note=note)

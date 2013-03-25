@@ -4,18 +4,25 @@ import datetime
 
 from leaf.extentions import db
 
+class NoteQuery:
+
+    @classmethod
+    def get_recent_note_by_user(cls,user_id):
+        note = Note.query.filter_by(user_id=user_id).order_by('-id').first()
+        return note
+
+
 class Note(db.Model):
-
+    query_obj = NoteQuery()
     __tablename__ = 'note'
-
     id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column('user_id', db.Integer, nullable=False, key='user_id')
     title = db.Column('title', db.VARCHAR(255), nullable=False)
     time = db.Column('time', db.TIMESTAMP, nullable=False)
     update_time = db.Column('update_time', db.TIMESTAMP, nullable=True)
     content = db.Column('content', db.Text, nullable=False)
-    
-    def __init__(self, user_id, title, content, time, update_time): 
+
+    def __init__(self, user_id, title, content, time, update_time):
         self.user_id = user_id
         self.title = title
         self.time = time
@@ -39,7 +46,7 @@ class Note(db.Model):
         self.content = content
         self.update_time = datetime.datetime.now()
         db.session.commit()
-    
+
     @classmethod
     def gets_by_author(cls, user_id):
         return cls.query.filter_by(user_id=user_id).all()

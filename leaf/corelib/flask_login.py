@@ -110,3 +110,5 @@ def logout_user():
     current_app.login_manager.reload_user()
     return True
 
+def get_user_id():
+    return session['user_id']
