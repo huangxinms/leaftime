@@ -12,9 +12,9 @@ def notes():
     notes = Note.query_obj.get_recent_note_by_user(user_id)
     return render_template('note_list.html', notes=notes, user=user_id)
 
-@app.route('/latest/')
+@app.route('/latest')
 @login_required
-def note():
+def latest():
     user_id = get_user_id()
     note = Note.query_obj.get_recent_note_by_user(user_id)
     return render_template('note.html', note=note)

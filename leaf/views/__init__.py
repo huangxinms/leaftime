@@ -6,7 +6,6 @@ from leaf import app
 from leaf import config
 from leaf.models.user_model import User
 
-import hello
 import user
 import note
 
