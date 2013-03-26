@@ -5,11 +5,14 @@ from leaf import app
 from leaf.models.user_model import User
 from leaf.forms.user import LoginForm
 
-from leaf.corelib.flask_login import login_required,login_user,logout_user
+from leaf.corelib.flask_login import login_required,login_user,logout_user,get_user_id
 
 @app.route('/login',methods=['GET','POST'])
 def login():
     if request.method == 'GET':
+        user_id = get_user_id()
+        if user_id != 0:
+            return redirect(url_for('latest'))
         return render_template('login.html')
     if request.method == 'POST':
         email = request.form['email']
@@ -23,7 +26,7 @@ def login():
                 result = user.check(password)
                 if result:
                     login_user(user)
-                    return redirect(url_for('hello'))
+                    return redirect(url_for('latest'))
                 else:
                     flash(u'用户名或密码错误')
         else:
@@ -36,6 +39,10 @@ def logout():
     return redirect(url_for('regist'))
 
 @app.route('/regist',methods=['GET','POST'])
+@app.route('/')
 def regist():
     if request.method == 'GET':
+        user_id = get_user_id()
+        if user_id != 0:
+            return redirect(url_for('latest'))
         return render_template('regist.html')

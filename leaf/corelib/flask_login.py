@@ -111,4 +111,6 @@ def logout_user():
     return True
 
 def get_user_id():
-    return session['user_id']
+    if session.has_key('user_id'):
+        return session['user_id']
+    return 0
