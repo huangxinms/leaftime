@@ -1,3 +1,30 @@
+/*
+ * 添加日记页面
+ */
+.contentwrap{
+    margin:5px auto;
+}
+.subsection{
+    margin-bottom:40px;
+}
+.subsection textarea{
+    width:523px;
+}
+.submitsection{
+    text-align:right;
+    padding-right:20px;
+}
+.submitsection .submit{
+    background:url("../img/btn_save.gif") no-repeat scroll 0 0 transparent;
+    border:0 none;
+    cursor:pointer;
+    height:39px;
+    width:138px;
+}
+
+/*
+ * 单篇日记显示页面
+ */
 .subnav_top{
     padding:70px 0 48px 0; 
 }

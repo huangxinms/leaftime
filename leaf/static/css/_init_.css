@@ -48,6 +48,8 @@ a{
     border-color:#F2F1EF;
     border-style:solid;
     background-color:#DEDDDC;
+    width:638px;
+    margin-top:5px;
 }
 .content{
     border-radius:10px 10px 10px 10px;
@@ -58,6 +60,17 @@ a{
     padding:38px 50px 21px 42px;
     position:relative;
 }
+
+.content h2{
+    padding:0 0 15px;
+    margin-bottom:35px;
+    border-bottom:1px solid #E5E5E5;
+}
+
+.content h3{
+    padding-bottom:5px;
+}
+
 .article h2{
     color:#A41100;
     text-align:center;
@@ -99,3 +112,6 @@ input.txt{
     margin-left:25px;
 }
 
+textarea{
+    padding:9px 17px;
+}

@@ -75,3 +75,9 @@ def get_random_note():
                 time = note_time,
                 content = note_content
             )
+
+@app.route('/write/',methods=['GET','POST'])
+@login_required
+def write():
+    if request.method == 'GET':
+        return render_template('write.html')
