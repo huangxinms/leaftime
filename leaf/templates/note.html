@@ -5,6 +5,8 @@
         <title>{{ note.title }}</title>
         <link type="text/css" rel="stylesheet" media="screen" href="../static/css/_init_.css" />
         <link type="text/css" rel="stylesheet" media="screen" href="../static/css/show.css" />
+        <script type = 'text/javascript' src = '../static/js/jquery.min.js'></script>
+        <script type = 'text/javascript' src = '../static/js/note.js'></script>
     </head>
     <body>
         <div class="header">
@@ -27,13 +29,13 @@
                 <div class="menu">
                     <ul>
                         <li class="menu_item">
-                            <a href="#" class='newer'></a>
+                            <a href="javascript:;" class='newer' id="newer"></a>
                         </li>
                         <li class="menu_item">
-                            <a href="#" class='random'></a>
+                            <a href="javascript:;" class='random' id="random"></a>
                         </li>
                         <li class="menu_item">
-                            <a href="#" class='older'></a>
+                            <a href="javascript:;" class='older' id="older"></a>
                         </li>
                     </ul>
                 </div> 
@@ -44,9 +46,10 @@
                         <img src="../static/img/icon_ribbon.gif" />
                     </div>
                     <div class="article">
-                        <h2>{{ note.title }}</h2>
-                        <h3>{{ note.time }}</h3>
-                        <div class="text">
+                        <input type='hidden' id='note_id' value='{{ note.id }}'/>
+                        <h2 id='note_title'>{{ note.title }}</h2>
+                        <h3 id="note_time">{{ note.time }}</h3>
+                        <div class="text" id="note_content">
                             {{ note.content }}
                         </div>
                     </div>

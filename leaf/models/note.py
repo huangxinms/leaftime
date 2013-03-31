@@ -7,10 +7,23 @@ from leaf.extentions import db
 class NoteQuery:
 
     @classmethod
+    def gets_by_author(cls, user_id):
+        return Note.query.filter_by(user_id=user_id).all()
+
+    @classmethod
     def get_recent_note_by_user(cls,user_id):
         note = Note.query.filter_by(user_id=user_id).order_by('-id').first()
         return note
 
+    @classmethod
+    def get_older_note(cls,user_id,note_id):
+        note = Note.query.filter(Note.user_id==user_id,Note.id<note_id).order_by('-id').first()
+        return note
+
+    @classmethod
+    def get_newer_note(cls,user_id,note_id):
+        note = Note.query.filter(Note.user_id==user_id, Note.id>note_id).order_by('id').first()
+        return note
 
 class Note(db.Model):
     query_obj = NoteQuery()
@@ -50,7 +63,3 @@ class Note(db.Model):
     @classmethod
     def gets_by_author(cls, user_id):
         return cls.query.filter_by(user_id=user_id).all()
-
-    @classmethod
-    def get(cls, id):
-        return cls.query.get(id)
