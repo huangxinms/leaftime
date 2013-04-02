@@ -9,7 +9,7 @@ from leaf import app
 from leaf.models.note import Note
 from leaf.corelib.flask_login import get_user_id,login_required
 
-@app.route('/notes')
+@app.route('/notes/')
 def notes():
     user_id = get_user_id()
     notes = Note.query_obj.get_recent_note_by_user(user_id)

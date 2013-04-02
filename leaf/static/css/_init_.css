@@ -5,7 +5,7 @@
  */
 body{
     background-color:#FCFBF9;
-    font-size:1.15em;
+        font-size:1.15em;
     font-family:arial;
     margin:0;
     padding:0;
@@ -32,6 +32,9 @@ a{
 .centerwrap{
     margin:0 auto;
     width:890px;
+}
+.center{
+    margin:0 auto;
 }
 .logo{
     float:left;
@@ -74,15 +77,18 @@ a{
 .article h2{
     color:#A41100;
     text-align:center;
+    font-size:1.18em;
 }
 .article h3{
     color:#999999;
     text-align:center;
+    font-size:1em;
 }
 .article .text{
     padding-top:25px;
     line-height:1.7em;
 }
+
 input.txt{
     color:#333333;
     font-family:arial;
