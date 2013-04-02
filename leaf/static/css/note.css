@@ -59,6 +59,16 @@
 /*
  * 日记列表页
  */
+.articlelist .article{
+    border-top:1px solid #E5E5E5;
+    padding:50px 0 21px;
+}
+
+.articlelist .first{
+    border-top:none;
+    padding-top:0px;
+}
+
 .articlelist .article h2{
     text-align:left;
     border:0 none;
@@ -69,4 +79,15 @@
     text-align:left;
     margin:0;
 }
-
+.articlelist .tip{
+    background:url("../img/bg_tab.gif") no-repeat scroll 0 0 transparent;
+    color:#799AB2;
+    font-size:0.75em;
+    font-weight:bold;
+    height:26px;
+    left:-38px;
+    padding-top:4px;
+    position:absolute;
+    text-align:center;
+    width:37px;
+}
