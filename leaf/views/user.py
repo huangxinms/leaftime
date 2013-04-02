@@ -1,11 +1,12 @@
 #-*- coding:utf-8 -*-
 
-from flask import g,render_template,Module,request,redirect,flash,url_for
+from flask import render_template, request, redirect, flash, url_for
+
 from leaf import app
+from leaf.corelib.flask_login import login_user, logout_user, get_user_id
 from leaf.models.user_model import User
 from leaf.forms.user import LoginForm
 
-from leaf.corelib.flask_login import login_required,login_user,logout_user,get_user_id
 
 @app.route('/login',methods=['GET','POST'])
 def login():
