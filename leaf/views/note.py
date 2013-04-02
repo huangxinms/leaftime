@@ -17,7 +17,8 @@ def notes():
     notes = Note.query_obj.get_recent_note_by_user(user_id)
     return render_template('note_list.html', notes=notes, user=user_id)
 
-@app.route('/latest/')
+
+@app.route('/latest')
 @login_required
 def latest():
     user_id = get_user_id()
@@ -25,6 +26,8 @@ def latest():
     note.time = note.time.strftime('%Y年%m月%d日').decode('utf-8')
     return render_template('note.html', note=note)
 
+
+# /get_older_note/ -> /get_older_note
 @app.route('/get_older_note/', methods=['GET'])
 @login_required
 def get_older_note():
@@ -42,6 +45,8 @@ def get_older_note():
                 content = note_content
             )
 
+
+# /get_newer_note/ -> /get_newer_note
 @app.route('/get_newer_note/', methods=['GET'])
 @login_required
 def get_newer_note():
@@ -60,6 +65,7 @@ def get_newer_note():
             )
 
 
+# /get_random_note/ -> /get_random_note
 @app.route('/get_random_note/', methods=['GET'])
 @login_required
 def get_random_note():
@@ -78,6 +84,7 @@ def get_random_note():
                 content = note_content
             )
 
+
 @app.route('/write',methods=['GET','POST'])
 @login_required
 def write():
@@ -93,5 +100,6 @@ def write():
             note_date = datetime.datetime.now()
 
         user_id = get_user_id()
+        # add a title in form, or delete `title` column in database?
         Note.create(user_id, 'NOTE DEFAULT TITLE', note_content, note_date)
         return redirect(url_for("notes"))

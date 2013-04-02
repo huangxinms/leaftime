@@ -7,18 +7,18 @@ from leaf.corelib.flask_login import login_user, logout_user, get_user_id
 from leaf.models.user_model import User
 from leaf.forms.user import LoginForm
 
-
-@app.route('/login',methods=['GET','POST'])
+@app.route('/login',methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         user_id = get_user_id()
-        if user_id != 0:
+        if user_id:
             return redirect(url_for('latest'))
         return render_template('login.html')
-    if request.method == 'POST':
+    elif request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
         result = LoginForm(email=email, password=password).validate()
+        # TODO: move password verification to form
         if result.is_success:
             user = User.query_obj.get_by_email(email)
             if user is None:
@@ -34,14 +34,16 @@ def login():
             flash(result.message)
     return redirect(url_for('login'))
 
+
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('regist'))
+    return redirect(url_for('register'))
 
-@app.route('/regist',methods=['GET','POST'])
+
+@app.route('/register',methods=['GET','POST'])
 @app.route('/')
-def regist():
+def register():
     if request.method == 'GET':
         user_id = get_user_id()
         if user_id != 0:

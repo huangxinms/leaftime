@@ -8,22 +8,24 @@ class NoteQuery:
 
     @classmethod
     def gets_by_author(cls, user_id):
+        # 等日记写多了直接all()没有性能问题么？加个分页？
         return Note.query.filter_by(user_id=user_id).all()
 
     @classmethod
-    def get_recent_note_by_user(cls,user_id):
+    def get_recent_note_by_user(cls, user_id):
         note = Note.query.filter_by(user_id=user_id).order_by('-id').first()
         return note
 
     @classmethod
-    def get_older_note(cls,user_id,note_id):
+    def get_older_note(cls, user_id, note_id):
         note = Note.query.filter(Note.user_id==user_id,Note.id<note_id).order_by('-id').first()
         return note
 
     @classmethod
-    def get_newer_note(cls,user_id,note_id):
+    def get_newer_note(cls, user_id, note_id):
         note = Note.query.filter(Note.user_id==user_id, Note.id>note_id).order_by('id').first()
         return note
+
 
 class Note(db.Model):
     query_obj = NoteQuery()

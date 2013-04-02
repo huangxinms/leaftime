@@ -3,12 +3,12 @@
 from datetime import datetime
 
 from leaf.extentions import db
-from leaf import lm
 
 USER_STATUS_NORMAL = ''
 USER_STATUS_SUICIDE = 's'
 
 class UserQuery:
+
     def get_by_username(self, username):
         user = User.query.filter_by(username=username).first()
         return user
@@ -17,7 +17,7 @@ class UserQuery:
         user = User.query.filter_by(email=email).first()
         return user
 
-    def get_by_id(self,id):
+    def get_by_id(self, id):
         user = User.query.filter_by(id=id).first()
         return user
 
@@ -44,9 +44,6 @@ class User(db.Model):
     def is_anonymous(self):
         return False
 
-    def get_id(self):
-        return self.id
-
     @classmethod
     def create(cls, username, password, email, create_time=datetime.now(),
             status=USER_STATUS_NORMAL):
@@ -65,6 +62,5 @@ class User(db.Model):
         db.session.commit()
 
     def check(self, password):
-        if self.password == password:
-            return True
-        return False
+        # TODO: 改为MD5加密
+        return self.password == password
