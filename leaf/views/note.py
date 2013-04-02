@@ -1,13 +1,15 @@
 #-*- coding:utf-8 -*-
 
 from random import randint
+import datetime
+import cgi
 
-from flask import render_template,request
-from flask import json,jsonify
+from flask import render_template, request, redirect, url_for
+from flask import jsonify
 
 from leaf import app
 from leaf.models.note import Note
-from leaf.corelib.flask_login import get_user_id,login_required
+from leaf.corelib.flask_login import get_user_id, login_required
 
 @app.route('/notes/')
 def notes():
@@ -76,8 +78,20 @@ def get_random_note():
                 content = note_content
             )
 
-@app.route('/write/',methods=['GET','POST'])
+@app.route('/write',methods=['GET','POST'])
 @login_required
 def write():
     if request.method == 'GET':
         return render_template('write.html')
+    elif request.method == 'POST':
+        note_date = request.form["note_date"]
+        note_content = request.form["note_content"]
+        note_content = cgi.escape(note_content)
+        try:
+            note_date = datetime.datetime.strptime(note_date, '%Y/%m/%d')
+        except ValueError:
+            note_date = datetime.datetime.now()
+
+        user_id = get_user_id()
+        Note.create(user_id, 'NOTE DEFAULT TITLE', note_content, note_date)
+        return redirect(url_for("notes"))
