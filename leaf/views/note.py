@@ -103,5 +103,5 @@ def write():
             note_date = datetime.datetime.now()
 
         user_id = get_user_id()
-        Note.create(user_id, 'NOTE DEFAULT TITLE', note_content, note_date)
+        Note.create(user_id,  note_content, note_date)
         return redirect(url_for("notes"))
