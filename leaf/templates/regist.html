@@ -6,7 +6,7 @@
         <link type="text/css" rel="stylesheet" media="screen" href="../static/css/_init_.css" />
         <link type="text/css" rel="stylesheet" media="screen" href="../static/css/regist.css" />
         <script type = 'text/javascript' src = '../static/js/jquery.min.js'></script>
-        <script type="text/javascript" src='../static/js/login.js'></script>
+        <script type="text/javascript" src='../static/js/register.js'></script>
     </head>
     <body>
         <div class="header">
@@ -29,9 +29,8 @@
                                 <h2>Email Address</h2>
                                 <div class="wrap">
                                     <input type="text" tabindex="1" name="email" class="email" id="email" value='Email Address' />
-                                    <input type='submit' value='' name='submit' id='submit' class='submit' />
+                                    <input type='submit' value='' id='regist' class='submit' />
                                 </div>
-                                <!--
                                 {% with messages = get_flashed_messages() %}
                                     {% if messages %}
                                     {% for message in messages %}
@@ -39,7 +38,6 @@
                                     {% endfor %}
                                     {% endif %}
                                 {% endwith %}
-                                -->
                                 <div class="error" id="error_mes"></div>
                             </form>
                         </div>

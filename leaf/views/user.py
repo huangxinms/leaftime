@@ -1,9 +1,10 @@
 #-*- coding:utf-8 -*-
 
-from flask import render_template, request, redirect, flash, url_for
+from flask import render_template, request, redirect, flash, url_for, jsonify
 
 from leaf import app
 from leaf.corelib.flask_login import login_user, logout_user, get_user_id
+from leaf.corelib.mail import send_regist_mail
 from leaf.models.user_model import User
 from leaf.forms.user import LoginForm
 
@@ -49,3 +50,11 @@ def register():
         if user_id != 0:
             return redirect(url_for('latest'))
         return render_template('regist.html')
+    elif request.method == 'POST':
+        email = request.form['email']
+        result = send_regist_mail(email)
+        if result:
+            flash(u'注册成功,请登陆邮箱激活账号')
+        else:
+            flash(u'邮箱无效，请重新填写')
+        return redirect(url_for('register'))
