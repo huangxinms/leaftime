@@ -7,9 +7,10 @@ from leaf.extentions import db
 class NoteQuery:
 
     @classmethod
-    def gets_by_author(cls, user_id):
+    # 如果网站2500年还在，请维护者记得修改该函数的默认参数end
+    def get_notes_by_author(cls, user_id, begin=datetime.datetime(1900,1,1), end=datetime.datetime(2500,1,1)):
         # 等日记写多了直接all()没有性能问题么？加个分页？
-        return Note.query.filter_by(user_id=user_id).all()
+        return Note.query.filter(Note.user_id==user_id, Note.time>=begin, Note.time<=end).all()
 
     @classmethod
     def get_recent_note_by_user(cls, user_id):
@@ -18,7 +19,7 @@ class NoteQuery:
 
     @classmethod
     def get_older_note(cls, user_id, note_id):
-        note = Note.query.filter(Note.user_id==user_id,Note.id<note_id).order_by('-id').first()
+        note = Note.query.filter(Note.user_id==user_id, Note.id<note_id).order_by('-id').first()
         return note
 
     @classmethod

@@ -27,7 +27,7 @@
             <div class="sidebar">
                 <div class="menu">
                     <div class="item on">
-                        <a href='#'>All</a>
+                        <a href='#'>所有</a>
                     </div>
                     <div class="item">
                         <a href="#">四月</a>
@@ -40,39 +40,24 @@
             <div class="contentwrap">
                 <div class="content">
                     <div class="articlelist">
-                        <div class="article first">
+                        {% set count = 1 %}
+                        {% for note in notes %} 
+                            {% if count == 1 %}
+                                <div class="article first">
+                            {% else %}
+                                <div class="article">
+                            {% endif %}
+                            {% set count = count + 1 %}
                             <div class='tip'>
-                                <span>3</span>
+                                <span></span>
                             </div>
-                            <h2>2013年4月2日</h2>
-                            <h3>星期三</h3>
+                            <h2>{{ note.time }}</h2>
+                            <h3>{{ note.weekday}}</h3>
                             <div class='text'>
-                                <p>我吃饭了，你也吃饭了</p>
-                                <p>对么？</p>
+                                {{ note.content }}
                             </div>
                         </div>
-                        <div class="article">
-                            <div class='tip'>
-                                <span>2</span>
-                            </div>
-                            <h2>2013年4月2日</h2>
-                            <h3>星期三</h3>
-                            <div class='text'>
-                                <p>我吃饭了，你也吃饭了</p>
-                                <p>对么？</p>
-                            </div>
-                        </div>
-                        <div class="article">
-                            <div class='tip'>
-                                <span>1</span>
-                            </div>
-                            <h2>2013年4月2日</h2>
-                            <h3>星期三</h3>
-                            <div class='text'>
-                                <p>我吃饭了，你也吃饭了</p>
-                                <p>对么？</p>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

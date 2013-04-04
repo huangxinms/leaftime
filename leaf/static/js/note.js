@@ -49,12 +49,12 @@ function get_random_note(){
 
 function show_note(note){
     var note_id = $('#note_id');
-    var note_title = $('#note_title');
     var note_time = $('#note_time');
+    var note_weekday = $('#note_weekday');
     var note_content = $('#note_content');
     note_id.val(note.id);
-    note_title.html(note.time);
     note_time.html(note.time);
+    note_weekday.html(note.weekday);
     note_content.html(note.content);
 }
 
