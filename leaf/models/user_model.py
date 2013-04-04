@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from leaf.extentions import db
+from leaf.corelib import secure
 
 USER_STATUS_NORMAL = ''
 USER_STATUS_SUICIDE = 's'
@@ -26,7 +27,8 @@ class User(db.Model):
     query_obj = UserQuery()
     __tablename__ = 'user'
     id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
-    password = db.Column('password', db.VARCHAR(15), nullable=False)
+    password = db.Column('password', db.VARCHAR(150), nullable=False)
+    salt = db.Column('salt', db.VARCHAR(20), nullable=False)
     username = db.Column('username', db.VARCHAR(30), nullable=False, default='')
     email = db.Column('email', db.VARCHAR(63), nullable=False)
     create_time = db.Column('create_time', db.TIMESTAMP, nullable=False)
@@ -47,7 +49,8 @@ class User(db.Model):
     @classmethod
     def create(cls, username, password, email, create_time=datetime.now(),
             status=USER_STATUS_NORMAL):
-        user = User(password=password, username=username, email=email,
+        salt,password = secure.encrypt(password)
+        user = User(salt=salt, password=password, username=username, email=email,
                     create_time=create_time, status=status)
         db.session.add(user)
         db.session.commit()
@@ -62,5 +65,4 @@ class User(db.Model):
         db.session.commit()
 
     def check(self, password):
-        # TODO: 改为MD5加密
-        return self.password == password
+        return secure.check_user(password,self.salt,self.password)
