@@ -53,7 +53,7 @@ function show_note(note){
     var note_time = $('#note_time');
     var note_content = $('#note_content');
     note_id.val(note.id);
-    note_title.html(note.title);
+    note_title.html(note.time);
     note_time.html(note.time);
     note_content.html(note.content);
 }

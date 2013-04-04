@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 
@@ -44,8 +44,7 @@ def add_notes():
             到黄昏、点点滴滴。
             这次第，
             怎一个、愁字了得！'''
-        title = '如梦令'
-        Note.create(user.id, title, content)
+        Note.create(user.id, content)
 
         content = '''
             常记溪亭日暮，
@@ -54,8 +53,7 @@ def add_notes():
             误入藕花深处。
             争渡，争渡，
             惊起一滩鸥鹭。 '''
-        title = '声声慢'
-        Note.create(user.id, title, content)
+        Note.create(user.id, content)
 
 if __name__ == '__main__':
     db.drop_all()

@@ -35,12 +35,10 @@ def get_older_note():
     user_id = get_user_id()
     note = Note.query_obj.get_older_note(user_id,note_id)
     note_id = note.id
-    note_title = note.title
     note_content = note.content
     note_time = note.time.strftime('%Y年%m月%d日')
     return jsonify(
                 id = note_id,
-                title=note_title,
                 time = note_time,
                 content = note_content
             )
@@ -54,12 +52,10 @@ def get_newer_note():
     user_id = get_user_id()
     note = Note.query_obj.get_newer_note(user_id,note_id)
     note_id = note.id
-    note_title = note.title
     note_content = note.content
     note_time = note.time.strftime('%Y年%m月%d日')
     return jsonify(
                 id = note_id,
-                title=note_title,
                 time = note_time,
                 content = note_content
             )
@@ -74,12 +70,10 @@ def get_random_note():
     note_list = Note.query_obj.gets_by_author(user_id)
     note = note_list[randint(0, len(note_list)-1)]
     note_id = note.id
-    note_title = note.title
     note_content = note.content
     note_time = note.time.strftime('%Y年%m月%d日')
     return jsonify(
                 id = note_id,
-                title=note_title,
                 time = note_time,
                 content = note_content
             )
@@ -100,6 +94,5 @@ def write():
             note_date = datetime.datetime.now()
 
         user_id = get_user_id()
-        # add a title in form, or delete `title` column in database?
         Note.create(user_id, 'NOTE DEFAULT TITLE', note_content, note_date)
         return redirect(url_for("notes"))
