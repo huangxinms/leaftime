@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 
+import re
 import smtplib
 from email.mime.text import MIMEText
 
 from leaf.config import *
 
 
-def send_regist_mail(mail_to):
+def send_regist_mail(mail_to, code):
+    def __generate_regist_url():
+        base_url = 'http://42.96.171.102/init?email=%s&code=%s'
+        return base_url %(mail_to,code)
     try:
         title = '欢迎注册Heytime'
-        body = '请点击完成注册'
+        body = __generate_regist_url()
         __send_mail(mail_to,title,body)
         return True
     except:
@@ -27,3 +31,7 @@ def __send_mail(mail_to,title,text):
     smtp.sendmail(MAIL_USERNAME,mail_to,msg.as_string())
     smtp.quit()
 
+def check_email(email):
+    if re.match("(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)", email):
+        return True
+    return False

@@ -1,12 +1,37 @@
 #-*- coding:utf-8 -*-
 
 from datetime import datetime
+import random
 
 from leaf.extentions import db
 from leaf.corelib import secure
 
 USER_STATUS_NORMAL = ''
 USER_STATUS_SUICIDE = 's'
+
+class UserRegistQuery:
+
+    def get_by_email(self,email):
+        user = UserRegist.query.filter_by(email=email).order_by('-id').first()
+        return user
+
+
+class UserRegist(db.Model):
+    query_obj = UserRegistQuery()
+    __tablename__ = 'user_regist'
+    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
+    email = db.Column('email', db.VARCHAR(63), nullable=False)
+    code = db.Column('code', db.VARCHAR(150), nullable=False)
+    create_time = db.Column('create_time', db.TIMESTAMP, nullable=False)
+
+    @classmethod
+    def create(cls, email, code):
+        user = UserRegist(email=email, code=code, create_time=datetime.now())
+        db.session.add(user)
+        db.session.commit()
+
+    def check(self, code):
+        return self.code == code
 
 class UserQuery:
 

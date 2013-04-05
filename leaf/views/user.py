@@ -1,12 +1,14 @@
 #-*- coding:utf-8 -*-
 
+import random
+
 from flask import render_template, request, redirect, flash, url_for, jsonify
 
 from leaf import app
 from leaf.corelib.flask_login import login_user, logout_user, get_user_id
 from leaf.corelib.mail import send_regist_mail
-from leaf.models.user_model import User
-from leaf.forms.user import LoginForm
+from leaf.models.user_model import User, UserRegist
+from leaf.forms.user import LoginForm, RegistForm
 
 @app.route('/login',methods=['GET', 'POST'])
 def login():
@@ -19,7 +21,6 @@ def login():
         email = request.form['email']
         password = request.form['password']
         result = LoginForm(email=email, password=password).validate()
-        # TODO: move password verification to form
         if result.is_success:
             user = User.query_obj.get_by_email(email)
             if user is None:
@@ -52,9 +53,19 @@ def register():
         return render_template('regist.html')
     elif request.method == 'POST':
         email = request.form['email']
-        result = send_regist_mail(email)
-        if result:
-            flash(u'注册成功,请登陆邮箱激活账号')
+        result = RegistForm(email=email).validate()
+        if result.is_success:
+            code = ''.join(random.sample('abcdefghijklmnopqrstuvwxyz',20))
+            result = send_regist_mail(email,code)
+            if result:
+                user = User.query_obj.get_by_email(email)
+                if user:
+                    flash(u'该邮箱已经注册')
+                else:
+                    UserRegist.create(email, code)
+                    flash(u'注册成功,请登陆邮箱激活账号')
+            else:
+                flash(u'邮箱无效，请重新填写')
         else:
-            flash(u'邮箱无效，请重新填写')
+            flash(result.message)
         return redirect(url_for('register'))

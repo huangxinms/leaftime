@@ -8,10 +8,14 @@ LEAF_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.p
 import sys
 sys.path.insert(0, LEAF_PATH)
 
-from leaf.models.user_model import User
+from leaf.models.user_model import User, UserRegist
 from leaf.models.note import Note
 
 from leaf.extentions import db
+
+def add_regist_users():
+    print 'add regist users......'
+    UserRegist.create('huangxinms@gmail.com')
 
 def add_users():
     print 'add users......'
@@ -61,3 +65,4 @@ if __name__ == '__main__':
 
     add_users()
     add_notes()
+    add_regist_users()
