@@ -24,7 +24,12 @@ h2,h3,p{
 a{
     text-decoration:none;
 }
-
+.center{
+    margin:0 auto;
+}
+.left{
+    margin-left:0 !important;
+}
 .header{
     background:url('../img/bg_header.gif') repeat scroll 0 0 #649CC7;
     height:78px;
@@ -32,9 +37,6 @@ a{
 .centerwrap{
     margin:0 auto;
     width:890px;
-}
-.center{
-    margin:0 auto;
 }
 .logo{
     float:left;
@@ -52,7 +54,7 @@ a{
     border-style:solid;
     background-color:#DEDDDC;
     width:638px;
-    margin-top:5px;
+    margin:5px auto;
 }
 .content{
     border-radius:10px 10px 10px 10px;
@@ -160,3 +162,4 @@ input.txt{
 textarea{
     padding:9px 17px;
 }
+
