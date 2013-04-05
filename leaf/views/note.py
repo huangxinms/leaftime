@@ -32,8 +32,7 @@ def latest():
     return render_template('note.html', note=note)
 
 
-# /get_older_note/ -> /get_older_note
-@app.route('/get_older_note/', methods=['GET'])
+@app.route('/get_older_note', methods=['GET'])
 @login_required
 def get_older_note():
     note_id = int(request.args.get('note_id'))
@@ -51,8 +50,7 @@ def get_older_note():
             )
 
 
-# /get_newer_note/ -> /get_newer_note
-@app.route('/get_newer_note/', methods=['GET'])
+@app.route('/get_newer_note', methods=['GET'])
 @login_required
 def get_newer_note():
     note_id = int(request.args.get('note_id'))
@@ -69,8 +67,7 @@ def get_newer_note():
                 content = note_content
             )
 
-# /get_random_note/ -> /get_random_note
-@app.route('/get_random_note/', methods=['GET'])
+@app.route('/get_random_note', methods=['GET'])
 @login_required
 def get_random_note():
     note_id = int(request.args.get('note_id'))

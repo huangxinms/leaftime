@@ -17,7 +17,7 @@ $(function(){
 function get_older_note(){
     var note_id = $('#note_id').val();
     $.getJSON(
-        '/get_older_note/',
+        '/get_older_note',
         {note_id:note_id},
         function(data){
             show_note(data);
@@ -28,7 +28,7 @@ function get_older_note(){
 function get_newer_note(){
     var note_id = $('#note_id').val();
     $.getJSON(
-        '/get_newer_note/',
+        '/get_newer_note',
         {note_id:note_id},
         function(data){
             show_note(data);
@@ -39,7 +39,7 @@ function get_newer_note(){
 function get_random_note(){
     var note_id = $('#note_id').val();
     $.getJSON(
-        '/get_random_note/',
+        '/get_random_note',
         {note_id:note_id},
         function(data){
             show_note(data);
