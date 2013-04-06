@@ -1,4 +1,5 @@
 #-*- coding:utf-8 -*-
+
 from flask import g
 
 from leaf import lm

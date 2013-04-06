@@ -2,7 +2,7 @@
 
 import random
 
-from flask import render_template, request, redirect, flash, url_for, jsonify
+from flask import render_template, request, redirect, flash, url_for
 
 from leaf import app
 from leaf.corelib.flask_login import login_user, logout_user, get_user_id
@@ -18,8 +18,8 @@ def login():
             return redirect(url_for('latest'))
         return render_template('login.html')
     elif request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
+        email = request.form['email'].strip()
+        password = request.form['password'].strip()
         result = LoginForm(email=email, password=password).validate()
         if result.is_success:
             user = User.query_obj.get_by_email(email)
@@ -34,7 +34,7 @@ def login():
                     flash(u'用户名或密码错误')
         else:
             flash(result.message)
-    return redirect(url_for('login'))
+    return render_template('login.html', email=email)
 
 
 @app.route('/logout')
@@ -52,7 +52,7 @@ def register():
             return redirect(url_for('latest'))
         return render_template('regist.html')
     elif request.method == 'POST':
-        email = request.form['email']
+        email = request.form['email'].strip()
         result = RegistForm(email=email).validate()
         if result.is_success:
             code = ''.join(random.sample('abcdefghijklmnopqrstuvwxyz',20))

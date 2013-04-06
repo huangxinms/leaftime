@@ -67,6 +67,7 @@ def get_newer_note():
                 content = note_content
             )
 
+# FIXME: 有可能获取到跟当前日记重复的日记，需过滤
 @app.route('/get_random_note', methods=['GET'])
 @login_required
 def get_random_note():

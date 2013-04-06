@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}登陆{% endblock %}
+{% block title %}登录{% endblock %}
 {% block head %}
     {{ super() }}
     <link type="text/css" rel="stylesheet" media="screen" href="../static/css/login.css" />
@@ -13,7 +13,7 @@
                 <form method="post" action="/login" id='login_form'>
                     <div class="wrap">
                         <h2>Email Address</h2>
-                        <input type="text" tabindex="1" value="" name="email" class="txt" id="email"/>
+                        <input type="text" tabindex="1" value="{{ email }}" name="email" class="txt" id="email"/>
                     </div>
                     <div class="wrap">
                         <h2>Password</h2>
