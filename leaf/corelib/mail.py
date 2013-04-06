@@ -32,4 +32,4 @@ def __send_mail(mail_to,title,text):
     smtp.quit()
 
 def check_email(email):
-    return re.match("(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)", email):
+    return re.match("(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)", email)
