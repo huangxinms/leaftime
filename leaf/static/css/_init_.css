@@ -99,6 +99,10 @@ input.txt{
     padding-bottom:7px;
     padding-left:8px;
 }
+input.password{
+    height:45px;
+    font-size:1.13em;
+}
 .error{
     color:#B21D1D;
     font-size:1.25em;
