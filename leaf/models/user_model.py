@@ -72,7 +72,7 @@ class User(db.Model):
         return False
 
     @classmethod
-    def create(cls, username, password, email, create_time=datetime.now(),
+    def create(cls, email, password, username='', create_time=datetime.now(),
             status=USER_STATUS_NORMAL):
         salt,password = secure.encrypt(password)
         user = User(salt=salt, password=password, username=username, email=email,

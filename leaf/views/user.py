@@ -8,7 +8,7 @@ from leaf import app
 from leaf.corelib.flask_login import login_user, logout_user, get_user_id
 from leaf.corelib.mail import send_regist_mail
 from leaf.models.user_model import User, UserRegist
-from leaf.forms.user import LoginForm, RegistForm
+from leaf.forms.user import LoginForm, RegistForm, RegistPasswordForm
 
 @app.route('/login',methods=['GET', 'POST'])
 def login():
@@ -63,9 +63,24 @@ def register():
                     flash(u'该邮箱已经注册')
                 else:
                     UserRegist.create(email, code)
-                    flash(u'注册成功,请登陆邮箱激活账号')
+                    return render_template('password.html',email=email)
             else:
                 flash(u'邮箱无效，请重新填写')
         else:
             flash(result.message)
         return redirect(url_for('register'))
+
+@app.route('/init-password',methods=['GET','POST'])
+def init_password():
+    if request.method == 'GET':
+        return render_template('password.html')
+    elif request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        result = RegistPasswordForm(email=email, password=password)
+        if result:
+            user = User.create(email=email, password=password)
+            login_user(user)
+            return render_template('write.html')
+        else:
+            return render_templete('password.html')

@@ -30,3 +30,20 @@ class RegistForm():
             return ValidateInfo(False, u'请输入合法的邮箱地址')
         return ValidateInfo(True)
 
+
+class RegistPasswordForm():
+
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
+
+    def validate(self):
+        if self.email == '':
+            return ValidateInfo(False, u'邮箱不能为空')
+        if not check_email(self.email):
+            return ValidateInfo(False, u'请输入合法的邮箱地址')
+        user = User.query_obj.get_by_email(email)
+        if user:
+            return ValidateInof(False, u'该邮箱已经被注册')
+        return ValidateInfo(True)
+
