@@ -9,6 +9,7 @@ from flask import jsonify
 
 from leaf import app
 from leaf.models.note import Note
+from leaf.corelib import format_textarea
 from leaf.corelib.flask_login import get_user_id, login_required
 from leaf.corelib.ext_date import get_local_weekday,get_local_date
 
@@ -96,6 +97,7 @@ def write():
         note_date = request.form["note_date"]
         note_content = request.form["note_content"]
         note_content = cgi.escape(note_content)
+        note_content = format_textarea(note_content)
         try:
             note_date = datetime.datetime.strptime(note_date, '%Y/%m/%d')
         except ValueError:
@@ -104,3 +106,4 @@ def write():
         user_id = get_user_id()
         Note.create(user_id,  note_content, note_date)
         return redirect(url_for("notes"))
+

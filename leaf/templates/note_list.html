@@ -36,7 +36,9 @@
                     <h2>{{ note.time }}</h2>
                     <h3>{{ note.weekday}}</h3>
                     <div class='text'>
-                        {{ note.content }}
+                        {% autoescape off %}
+                            {{ note.content }}
+                        {% endautoescape %}
                     </div>
                 </div>
                 {% endfor %}
