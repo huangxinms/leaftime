@@ -18,10 +18,11 @@
                     {% set user_id = get_user_id() %}  
                     {% if user_id %}
                     <ul>
-                        <li><a href='/logout'>注销</a><li>
-                        <li><a href='/past'>设置</a><li>
-                        <li><a href='/notes'>历史</a><li>
-                        <li><a href='/latest'>最近</a><li>
+                        <li><a href='/logout'>注销</a></li>
+                        <li><a href='/past'>设置</a></li>
+                        <li><a href='/notes'>历史</a></li>
+                        <li><a href='/latest'>最近</a></li>
+                        <li><a href='/write'>写日记</a></li>
                     </ul>
                     {% else %}
                     <a href='/login' class='login'></a>
