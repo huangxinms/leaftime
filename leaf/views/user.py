@@ -55,17 +55,17 @@ def register():
         email = request.form['email'].strip()
         result = RegistForm(email=email).validate()
         if result.is_success:
-            code = ''.join(random.sample('abcdefghijklmnopqrstuvwxyz',20))
-            result = send_regist_mail(email,code)
-            if result:
-                user = User.query_obj.get_by_email(email)
-                if user:
-                    flash(u'该邮箱已经注册')
-                else:
+            user = User.query_obj.get_by_email(email)
+            if user:
+                flash(u'该邮箱已经注册')
+            else:
+                code = ''.join(random.sample('abcdefghijklmnopqrstuvwxyz',20))
+                result = send_regist_mail(email,code)
+                if result:
                     UserRegist.create(email, code)
                     return render_template('password.html',email=email)
-            else:
-                flash(u'邮箱无效，请重新填写')
+                else:
+                    flash(u'发送失败，请重试')
         else:
             flash(result.message)
         return redirect(url_for('register'))
