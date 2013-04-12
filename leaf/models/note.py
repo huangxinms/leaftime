@@ -9,7 +9,7 @@ class NoteQuery:
     @classmethod
     # 如果网站2500年还在，请维护者记得修改该函数的默认参数end
     def get_notes_by_author(cls, user_id, begin=datetime.datetime(1900,1,1), end=datetime.datetime(2500,1,1)):
-        # 等日记写多了直接all()没有性能问题么？加个分页？
+        # TODO:等日记写多了直接all()没有性能问题么？加个分页？
         return Note.query.filter(Note.user_id==user_id, Note.time>=begin, Note.time<=end).all()
 
     @classmethod
@@ -34,13 +34,13 @@ class Note(db.Model):
     id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column('user_id', db.Integer, nullable=False, key='user_id')
     time = db.Column('time', db.TIMESTAMP, nullable=False)
-    update_time = db.Column('update_time', db.TIMESTAMP, nullable=True)
+    datenum = db.Column('datenum', db.Integer, nullable=False)
     content = db.Column('content', db.Text, nullable=False)
 
-    def __init__(self, user_id, content, time, update_time):
+    def __init__(self, user_id, content, time):
         self.user_id = user_id
         self.time = time
-        self.update_time = update_time
+        self.datenum = self.time.strftime('%Y%m')
         self.content = content
 
     def __repr__(self):
