@@ -121,7 +121,7 @@ def write():
         note_content = cgi.escape(note_content)
         note_content = format_textarea(note_content)
         try:
-            note_date = datetime.datetime.strptime(note_date, '%Y/%m/%d')
+            note_date = datetime.datetime.strptime(note_date, '%Y-%m-%d')
         except ValueError:
             note_date = datetime.datetime.now()
 

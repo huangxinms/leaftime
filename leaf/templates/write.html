@@ -11,7 +11,7 @@
             <form action="/write" method="post">
                 <div class="subsection">
                     <h3>日期</h3>
-                    <input type='text' name="note_date" value="2013/03/27" id="note_date" class="txt"/>
+                    <input type='text' name="note_date" value="" id="note_date" class="txt"/>
                 </div>
                 <div class="subsection">
                     <h3>内容</h3>
@@ -23,4 +23,10 @@
             </form>
         </div>
     </div>
+    <script type="text/javascript">
+        $(function(){
+            var today = new Date().format('yyyy-MM-dd');
+            $('#note_date').val(today).datepicker();
+        });
+    </script>
 {% endblock %}

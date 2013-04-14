@@ -58,7 +58,7 @@ class Note(db.Model):
     def create(cls, user_id, content, time=None):
         if not time:
             time = datetime.datetime.now()
-        note = cls(user_id, content, time, None)
+        note = cls(user_id, content, time)
         db.session.add(note)
         db.session.commit()
         return note
