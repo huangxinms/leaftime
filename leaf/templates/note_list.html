@@ -3,20 +3,20 @@
 {% block head %}
     {{ super() }}
     <link type="text/css" rel="stylesheet" media="screen" href="../static/css/note.css" />
-    <script type = 'text/javascript' src = '../static/js/note.js'></script>
+    <script type = 'text/javascript' src = '../static/js/note_list.js'></script>
 {% endblock %}
 {% block content %} 
     <div class="sidebar">
         <div class="menu">
-            <div class="item on">
-                <a href='#'>所有</a>
+            <input type='hidden' id='datenum_hidden' value = '{{ datenum }}' />
+            <div class="item" id="date_sel_all">
+                <a href='/notes/'>所有</a>
             </div>
-            <div class="item">
-                <a href="#">四月</a>
-            </div>
-            <div class="item">
-                <a href="#">三月</a>
-            </div>
+            {% for m in date_list %}
+                <div class="item" id="date_sel_{{ m }}">
+                    <a href="/notes/{{ m }}">{{ m[:4] }}年{{ m[4:] }}月</a>
+                </div>
+            {% endfor %}
         </div>
     </div>
     <div class="left contentwrap">
@@ -46,3 +46,4 @@
         </div>
     </div>
 {% endblock %}
+

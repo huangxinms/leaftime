@@ -10,7 +10,15 @@ class NoteQuery:
     # 如果网站2500年还在，请维护者记得修改该函数的默认参数end
     def get_notes_by_author(cls, user_id, begin=datetime.datetime(1900,1,1), end=datetime.datetime(2500,1,1)):
         # TODO:等日记写多了直接all()没有性能问题么？加个分页？
-        return Note.query.filter(Note.user_id==user_id, Note.time>=begin, Note.time<=end).all()
+        return Note.query.filter(Note.user_id==user_id, Note.time>=begin, Note.time<=end).order_by('-id').all()
+
+    @classmethod
+    def get_notes_by_datenum(cls, user_id, datenum):
+        return Note.query.filter(Note.user_id==user_id, Note.datenum==datenum).order_by('-id').all()
+
+    @classmethod
+    def get_datenum_by_user(cls, user_id):
+        return db.session.query(Note.datenum).filter(Note.user_id==user_id).distinct()
 
     @classmethod
     def get_recent_note_by_user(cls, user_id):

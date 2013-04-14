@@ -3,9 +3,11 @@
 from random import randint
 import datetime
 import cgi
+import new
 
 from flask import render_template, request, redirect, url_for
 from flask import jsonify
+import json
 
 from leaf import app
 from leaf.models.note import Note
@@ -13,16 +15,36 @@ from leaf.corelib import format_textarea
 from leaf.corelib.flask_login import get_user_id, login_required
 from leaf.corelib.ext_date import get_local_weekday,get_local_date
 
+@app.route('/notes/<datenum>')
 @app.route('/notes/')
 @login_required
-def notes():
+def notes(datenum=None):
     user_id = get_user_id()
-    notes = Note.query_obj.get_notes_by_author(user_id)
+    if datenum is None:
+        notes = Note.query_obj.get_notes_by_author(user_id)
+        datenum = ''
+    else:
+        notes = Note.query_obj.get_notes_by_datenum(user_id,datenum)
     for note in notes:
         note.weekday = get_local_weekday(note.time)
         note.time = get_local_date(note.time)
-    return render_template('note_list.html', notes=notes)
 
+    date_list = [str(d) for d, in Note.query_obj.get_datenum_by_user(user_id)]
+    date_list = sorted(date_list,reverse=True)
+    return render_template('note_list.html', notes=notes, date_list=date_list, datenum=datenum)
+
+@app.route('/get_notes_by_date')
+@login_required
+def get_notes_by_date():
+    user_id = get_user_id()
+    datenum = int(request.args.get('datenum'))
+    notes = Note.query_obj.get_notes_by_datenum(user_id,datenum)
+    json_note_list = []
+    for note in notes:
+        note.weekday = get_local_weekday(note.time)
+        note.time = get_local_date(note.time)
+        json_note_list = json.dumps(new(note),cls=MyEncoder)
+    return json.dumps(json_note_list)
 
 @app.route('/latest')
 @login_required
