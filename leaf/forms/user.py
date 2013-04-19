@@ -47,3 +47,13 @@ class RegistPasswordForm():
             return ValidateInof(False, u'该邮箱已经被注册')
         return ValidateInfo(True)
 
+class ChangePasswordForm():
+
+    def __init__(self, new_password, confirm_password):
+        self.new_password = new_password
+        self.confirm_password = confirm_password
+
+    def validate(self):
+        if self.new_password != self.confirm_password:
+            return ValidateInfo(False, u'两次密码输入不一致')
+        return ValidateInfo(True)

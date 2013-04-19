@@ -91,3 +91,9 @@ class User(db.Model):
 
     def check(self, password):
         return secure.check_user(password,self.salt,self.password)
+
+    def set_password(self, password):
+        salt,en_password = secure.encrypt(password)
+        self.password = en_password
+        self.salt = salt
+        db.session.commit()

@@ -167,3 +167,20 @@ textarea{
     padding:9px 17px;
 }
 
+.wrap{
+    margin-top:25px;
+    margin-bottom:25px;
+}
+
+label{
+    margin:10px;
+}
+
+input.submit{
+    background:url("../img/btn_save.gif") no-repeat scroll 0 0 transparent;
+    border:0 none;
+    cursor:pointer;
+    height:39px;
+    width:138px;
+}
+

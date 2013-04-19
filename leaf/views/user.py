@@ -8,7 +8,7 @@ from leaf import app
 from leaf.corelib.flask_login import login_user, logout_user, get_user_id
 from leaf.corelib.mail import send_regist_mail
 from leaf.models.user_model import User, UserRegist
-from leaf.forms.user import LoginForm, RegistForm, RegistPasswordForm
+from leaf.forms.user import LoginForm, RegistForm, RegistPasswordForm, ChangePasswordForm
 
 @app.route('/login',methods=['GET', 'POST'])
 def login():
@@ -77,10 +77,33 @@ def init_password():
     elif request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        result = RegistPasswordForm(email=email, password=password)
-        if result:
+        result = RegistPasswordForm(email=email, password=password).validate()
+        if result.is_success:
             user = User.create(email=email, password=password)
             login_user(user)
             return render_template('write.html')
         else:
             return render_templete('password.html')
+
+@app.route('/setting/password', methods=['GET','POST'])
+def change_password():
+    if request.method == 'GET':
+        return render_template('change_password.html')
+    if request.method == 'POST':
+        print 'aaaaaaaaaa'
+        user_id = get_user_id()
+        old_password = request.form['old']
+        new_password = request.form['new']
+        confirm_password = request.form['confirm']
+        result = ChangePasswordForm(new_password,confirm_password).validate()
+        if result.is_success:
+            user = User.query_obj.get_by_id(user_id)
+            result = user.check(old_password)
+            if result:
+                user.set_password(new_password)
+                flash(u'密码已修改')
+            else:
+                flash(u'原密码输入错误')
+        else:
+            flash(result.message)
+        return render_template('change_password.html')
