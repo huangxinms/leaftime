@@ -19,6 +19,7 @@
                 </div>
                 <div class="globalmenu">
                     {% set user_id = get_user_id() %}  
+                    {% set current_page = current_page|default('regist') -%}
                     {% if user_id %}
                     <ul>
                         <li><a href='/logout'>注销</a></li>
@@ -27,6 +28,8 @@
                         <li><a href='/latest'>最近</a></li>
                         <li><a href='/write'>写日记</a></li>
                     </ul>
+                    {% elif current_page == 'login'  %}
+                    <a href='/' class='regist'></a>
                     {% else %}
                     <a href='/login' class='login'></a>
                     {% endif %}

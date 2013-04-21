@@ -130,6 +130,14 @@ input.password{
     width:70px;
     margin-top:21px;
 }
+.globalmenu .regist{
+    background:url("../img/btn_regist.jpg") no-repeat scroll 0 0 transparent;
+    display:block;
+    height:32px;
+    width:70px;
+    margin-top:21px;
+}
+
 .sidebar{
     float:right;
     width:202px;
