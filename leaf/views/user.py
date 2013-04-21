@@ -86,6 +86,7 @@ def init_password():
             return render_templete('password.html')
 
 @app.route('/setting/password', methods=['GET','POST'])
+@login_required
 def change_password():
     if request.method == 'GET':
         return render_template('change_password.html')
