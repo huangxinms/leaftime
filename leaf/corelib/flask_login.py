@@ -4,6 +4,7 @@ import hmac
 from datetime import datetime, timedelta
 from flask import (current_app, session, _request_ctx_stack, redirect, url_for,
                    request, flash, abort)
+from urllib import urlencode
 from flask.signals import Namespace
 from functools import wraps
 from hashlib import sha1, md5
@@ -88,8 +89,10 @@ def _user_context_processor():
 def login_required(fn):
     @wraps(fn)
     def decorated_view(*args, **kwargs):
+        path = request.path
+        qs = urlencode({"prev":path})
         if not current_user:
-            return redirect(url_for('login'))
+            return redirect("%s?%s" % (url_for('login'), qs))
         return fn(*args, **kwargs)
     return decorated_view
 

@@ -1,11 +1,11 @@
 #-*- coding:utf-8 -*-
-
 import random
 
 from flask import render_template, request, redirect, flash, url_for
+from urlparse import unquote
 
 from leaf import app
-from leaf.corelib.flask_login import login_user, logout_user, get_user_id
+from leaf.corelib.flask_login import login_user, logout_user, get_user_id, login_required
 from leaf.corelib.mail import send_regist_mail
 from leaf.models.user_model import User, UserRegist
 from leaf.forms.user import LoginForm, RegistForm, RegistPasswordForm, ChangePasswordForm
@@ -29,6 +29,9 @@ def login():
                 result = user.check(password)
                 if result:
                     login_user(user)
+                    previous_page = request.args.get('prev')
+                    if previous_page:
+                        return redirect(previous_page)
                     return redirect(url_for('latest'))
                 else:
                     flash(u'用户名或密码错误')
