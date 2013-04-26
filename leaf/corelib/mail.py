@@ -13,7 +13,7 @@ def send_regist_mail(mail_to, code):
     def __generate_regist_url():
         f = open('leaf/corelib/regist_mail.tpl','r')
         body = f.read()
-        base_url = 'http://42.96.171.102/init?email=%s&code=%s'
+        base_url = 'http://heytime.net/init?email=%s&code=%s'
         body_url = base_url %(mail_to, code)
         return body.format(body_url)
     try:
