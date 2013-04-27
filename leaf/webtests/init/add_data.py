@@ -20,8 +20,8 @@ def add_regist_users():
 
 def add_users():
     print 'add users......'
-    User.create('liaofeng.pro@gmail.com', '123456', 'liaofeng')
-    User.create('huangxinms@gmail.com', '111111', 'huangxin')
+    User.create('liaofeng.pro@gmail.com', '123456')
+    User.create('huangxinms@gmail.com', '111111')
 
 def add_notes():
     print 'add notes......'

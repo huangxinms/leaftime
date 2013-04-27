@@ -9,6 +9,7 @@ from leaf.corelib.flask_login import login_user, logout_user, get_user_id, login
 from leaf.corelib.mail import send_regist_mail
 from leaf.models.user_model import User, UserRegist
 from leaf.forms.user import LoginForm, RegistForm, RegistPasswordForm, ChangePasswordForm
+from leaf.corelib.consts import USER_STATUS_INVALID, USER_STATUS_NORMAL, USER_STATUS_SUICIDE
 
 @app.route('/login',methods=['GET', 'POST'])
 def login():
@@ -82,11 +83,28 @@ def init_password():
         password = request.form['password']
         result = RegistPasswordForm(email=email, password=password).validate()
         if result.is_success:
-            user = User.create(email=email, password=password)
+            user = User.create(email=email, password=password, status=USER_STATUS_INVALID)
             login_user(user)
             return render_template('write.html')
         else:
             return render_templete('password.html')
+
+@app.route('/init-user')
+def init_user():
+    email = request.args.get('email')
+    code = request.args.get('code')
+    r_user = UserRegist.query_obj.get_by_email(email)
+    if not r_user:
+        flash(u'该邮箱已经注册')
+        return redirect(url_for('register'))
+    is_valid = r_user.check(r_user.code)
+    if not is_valid:
+        flash(u'该邮箱已经注册')
+        return redirect(url_for('register'))
+    user = User.query_obj.get_by_email(email)
+    user.set_status(USER_STATUS_NORMAL)
+    login_user(user)
+    return redirect(url_for('no_notes'))
 
 @app.route('/setting/password', methods=['GET','POST'])
 @login_required
@@ -94,7 +112,6 @@ def change_password():
     if request.method == 'GET':
         return render_template('change_password.html')
     if request.method == 'POST':
-        print 'aaaaaaaaaa'
         user_id = get_user_id()
         old_password = request.form['old']
         new_password = request.form['new']

@@ -5,9 +5,7 @@ import random
 
 from leaf.extentions import db
 from leaf.corelib import secure
-
-USER_STATUS_NORMAL = ''
-USER_STATUS_SUICIDE = 's'
+from leaf.corelib.consts import USER_STATUS_INVALID, USER_STATUS_NORMAL, USER_STATUS_SUICIDE
 
 class UserRegistQuery:
 
@@ -33,11 +31,11 @@ class UserRegist(db.Model):
     def check(self, code):
         return self.code == code
 
-class UserQuery:
+    def set_status(self, status):
+        self.status = status
+        db.session.commit()
 
-    def get_by_username(self, username):
-        user = User.query.filter_by(username=username).first()
-        return user
+class UserQuery:
 
     def get_by_email(self, email):
         user = User.query.filter_by(email=email).first()
@@ -54,7 +52,6 @@ class User(db.Model):
     id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
     password = db.Column('password', db.VARCHAR(150), nullable=False)
     salt = db.Column('salt', db.VARCHAR(20), nullable=False)
-    username = db.Column('username', db.VARCHAR(30), nullable=False, default='')
     email = db.Column('email', db.VARCHAR(63), nullable=False)
     create_time = db.Column('create_time', db.TIMESTAMP, nullable=False)
     status = db.Column('status', db.CHAR(1), nullable=False)
@@ -72,10 +69,10 @@ class User(db.Model):
         return False
 
     @classmethod
-    def create(cls, email, password, username='', create_time=datetime.now(),
+    def create(cls, email, password, create_time=datetime.now(),
             status=USER_STATUS_NORMAL):
         salt,password = secure.encrypt(password)
-        user = User(salt=salt, password=password, username=username, email=email,
+        user = User(salt=salt, password=password, email=email,
                     create_time=create_time, status=status)
         db.session.add(user)
         db.session.commit()
