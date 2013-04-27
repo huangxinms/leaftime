@@ -42,7 +42,7 @@ class RegistPasswordForm():
             return ValidateInfo(False, u'邮箱不能为空')
         if not check_email(self.email):
             return ValidateInfo(False, u'请输入合法的邮箱地址')
-        user = User.query_obj.get_by_email(email)
+        user = User.query_obj.get_by_email(self.email)
         if user:
             return ValidateInof(False, u'该邮箱已经被注册')
         return ValidateInfo(True)

@@ -25,6 +25,8 @@ def notes(datenum=None):
         datenum = ''
     else:
         notes = Note.query_obj.get_notes_by_datenum(user_id,datenum)
+    if not notes:
+        return redirect(url_for('no_notes'))
     for note in notes:
         note.weekday = get_local_weekday(note.time)
         note.time = get_local_date(note.time)
@@ -51,6 +53,8 @@ def get_notes_by_date():
 def latest():
     user_id = get_user_id()
     note = Note.query_obj.get_recent_note_by_user(user_id)
+    if not note:
+        return redirect(url_for('no_notes'))
     note.weekday = get_local_weekday(note.time)
     note.time = get_local_date(note.time)
     return render_template('note.html', note=note)
@@ -129,3 +133,7 @@ def write():
         Note.create(user_id,  note_content, note_date)
         return redirect(url_for("notes"))
 
+@app.route('/nonotes')
+@login_required
+def no_notes():
+    return render_template('no_notes.html')
