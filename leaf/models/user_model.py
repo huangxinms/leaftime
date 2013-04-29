@@ -4,7 +4,7 @@ from datetime import datetime
 import random
 
 from leaf.extentions import db
-from leaf.corelib import secure
+from leaf.corelib import secure, cache, mc
 from leaf.corelib.consts import USER_STATUS_INVALID, USER_STATUS_NORMAL, USER_STATUS_SUICIDE
 
 class UserRegistQuery:
@@ -37,11 +37,13 @@ class UserRegist(db.Model):
 
 class UserQuery:
 
+    @cache('user:get_by_email:{email}')
     def get_by_email(self, email):
         user = User.query.filter_by(email=email).first()
         return user
 
-    def get_by_id(self, id):
+    @cache('user:get_by_id:{id}')
+    def get_by_id(self, id=0):
         user = User.query.filter_by(id=id).first()
         return user
 
@@ -55,9 +57,6 @@ class User(db.Model):
     email = db.Column('email', db.VARCHAR(63), nullable=False)
     create_time = db.Column('create_time', db.TIMESTAMP, nullable=False)
     status = db.Column('status', db.CHAR(1), nullable=False)
-
-    def __repr__(self):
-        return '<User %s, %s(%s)>' % (self.id, self.username, self.email)
 
     def is_authenticated(self):
         return True
@@ -78,19 +77,27 @@ class User(db.Model):
         db.session.commit()
         return user
 
+    def check(self, password):
+        return secure.check_user(password,self.salt,self.password)
+
     def set_email(self, email):
         self.email = email
         db.session.commit()
+        self.__clear_cache()
 
     def set_status(self, status):
         self.status = status
         db.session.commit()
-
-    def check(self, password):
-        return secure.check_user(password,self.salt,self.password)
+        self.__clear_cache()
 
     def set_password(self, password):
         salt,en_password = secure.encrypt(password)
         self.password = en_password
         self.salt = salt
         db.session.commit()
+        self.__clear_cache()
+
+    def __clear_cache(self):
+        mc.delete('user:get_notes_by_datenum:%s' %self.email)
+        mc.delete('user:get_by_id:%s' %self.id)
+

@@ -18,7 +18,8 @@ def load_user(user_id):
 def before_request():
     g.config = config
 
-
+'''
 @app.teardown_request
 def teardown_request(exception):
     pass
+'''

@@ -13,7 +13,7 @@ from leaf import app
 from leaf.models.note import Note
 from leaf.corelib import format_textarea
 from leaf.corelib.flask_login import get_user_id, login_required
-from leaf.corelib.ext_date import get_local_weekday,get_local_date
+from leaf.corelib import get_local_weekday,get_local_date
 
 @app.route('/notes/<datenum>')
 @app.route('/notes/')
