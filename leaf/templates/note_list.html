@@ -2,8 +2,8 @@
 {% block title %}历史{% endblock %}
 {% block head %}
     {{ super() }}
-    <link type="text/css" rel="stylesheet" media="screen" href="../static/css/note.css" />
-    <script type = 'text/javascript' src = '../static/js/note_list.js'></script>
+    <link type="text/css" rel="stylesheet" media="screen" href="{{ static }}/css/note.css" />
+    <script type = 'text/javascript' src = '{{ static }}/js/note_list.js'></script>
 {% endblock %}
 {% block content %} 
     <div class="sidebar">
