@@ -37,7 +37,6 @@ class UserRegist(db.Model):
 
 class UserQuery:
 
-    @cache('user:get_by_email:{email}')
     def get_by_email(self, email):
         user = User.query.filter_by(email=email).first()
         return user
@@ -98,6 +97,5 @@ class User(db.Model):
         self.__clear_cache()
 
     def __clear_cache(self):
-        mc.delete('user:get_notes_by_datenum:%s' %self.email)
         mc.delete('user:get_by_id:%s' %self.id)
 

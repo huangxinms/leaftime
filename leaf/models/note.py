@@ -3,22 +3,20 @@
 import datetime
 
 from leaf.extentions import db
-from leaf.corelib import cache
+from leaf.corelib import cache, mc
 
 class NoteQuery:
 
-    # TODO: mc有个checkkey方法没办法用datetime类型
     # TODO:等日记写多了直接all()没有性能问题么？加个分页？
     @classmethod
-    @cache('note:get_notes_by_author:{user_id}_{begin}_{end}', 60*60)
-    # 如果网站2500年还在，请维护者记得修改该函数的默认参数end
-    def get_notes_by_author(cls, user_id, begin=datetime.date(1900,1,1), end=datetime.date(2500,1,1)):
-        return Note.query.filter(Note.user_id==user_id, Note.time>=begin, Note.time<=end).order_by('-id').all()
+    @cache('note:get_notes_by_author:{user_id}', 60*60)
+    def get_notes_by_author(cls, user_id):
+        return Note.query.filter(Note.user_id==user_id).order_by('-id').all()
 
     @classmethod
-    @cache('note:get_notes_by_datenum:{user_id}_{datenum}', 60*60)
-    def get_notes_by_datenum(cls, user_id, datenum):
-        return Note.query.filter(Note.user_id==user_id, Note.datenum==datenum).order_by('-id').all()
+    @cache('note:get_note_by_id:{id}',60*60)
+    def get_note_by_id(cls, id):
+        return Note.query.filter(Note.id==id).first()
 
     @classmethod
     @cache('note:get_datenum_by_user:{user_id}', 60*60)
@@ -69,6 +67,8 @@ class Note(db.Model):
         note = cls(user_id, content, time)
         db.session.add(note)
         db.session.commit()
+        mc.delete('note:get_notes_by_author:%s' %user_id)
+        mc.delete('note:get_notes_by_author:%s' %user_id)
         return note
 
     def update(self, content):

@@ -20,11 +20,11 @@ from leaf.corelib import get_local_weekday,get_local_date
 @login_required
 def notes(datenum=None):
     user_id = get_user_id()
+    notes = Note.query_obj.get_notes_by_author(user_id)
     if datenum is None:
-        notes = Note.query_obj.get_notes_by_author(user_id)
         datenum = ''
     else:
-        notes = Note.query_obj.get_notes_by_datenum(user_id,datenum)
+        notes = [note for note in notes if str(note.datenum) == datenum]
     if not notes:
         return redirect(url_for('no_notes'))
     for note in notes:
@@ -66,6 +66,8 @@ def get_older_note():
     note_id = int(request.args.get('note_id'))
     user_id = get_user_id()
     note = Note.query_obj.get_older_note(user_id,note_id)
+    if not note:
+        note = Note.query_obj.get_note_by_id(note_id)
     note_id = note.id
     note_content = note.content
     note_weekday = get_local_weekday(note.time)
@@ -84,6 +86,8 @@ def get_newer_note():
     note_id = int(request.args.get('note_id'))
     user_id = get_user_id()
     note = Note.query_obj.get_newer_note(user_id,note_id)
+    if not note:
+        note = Note.query_obj.get_note_by_id(note_id)
     note_id = note.id
     note_content = note.content
     note_weekday = get_local_weekday(note.time)
