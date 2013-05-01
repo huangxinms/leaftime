@@ -12,6 +12,10 @@ MAIL_PORT = ''
 MAIL_USERNAME = ''
 MAIL_PASSWORD = ''
 
+#FILEPATH
+TEMPLATES_FILE_PATH = 'leaftime/leaf/templates'
+STATIC_FILE_PATH = 'leaftime/leaf/static/'
+
 try:
     from leaf.local_config import *
 except:
