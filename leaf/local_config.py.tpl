@@ -14,3 +14,7 @@ MAIL_PORT=25
 MAIL_USERNAME='abc@qq.com'
 MAIL_PASSWORD='abc'
 
+#FILEPATH
+TEMPLATES_FILE_PATH = 'leaftime/leaf/templates'
+STATIC_FILE_PATH = 'leaftime/leaf/static/'
+
