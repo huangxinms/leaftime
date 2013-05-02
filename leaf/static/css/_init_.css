@@ -179,9 +179,21 @@ input.password{
     text-align:center;
     padding:8px 0 10px;
 }
-
 textarea{
-    padding:9px 17px;
+    -moz-box-shadow:1px 1px 0 #E7E7E7;
+    -moz-box-sizing:border-box;
+    border-color:#CCCCCC #999999 #999999 #CCCCCC;
+    border-style:solid;
+    border-width:1px;
+    font-family:arial,sans-serif;
+    font-size:13px;
+    height:160px;
+    margin:10px auto;
+    outline-color:-moz-use-text-color;
+    outline-style:none;
+    outline-width:medium;
+    padding:2px;
+    width:100%;
 }
 
 .wrap{
