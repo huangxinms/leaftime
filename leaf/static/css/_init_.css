@@ -38,6 +38,15 @@ a{
     margin:0 auto;
     width:890px;
 }
+.footer{
+    padding-top:80px;
+    padding-bottom:30px;
+    text-align:center;
+}
+.footer a{
+    color:#a6a6a6;
+    font-size:80%;
+}
 .logo{
     float:left;
     height:33px;
