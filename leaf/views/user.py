@@ -104,7 +104,7 @@ def init_user():
     user = User.query_obj.get_by_email(email)
     user.set_status(USER_STATUS_NORMAL)
     login_user(user)
-    return redirect(url_for('no_notes'))
+    return redirect(url_for('notes'))
 
 @app.route('/setting/password', methods=['GET','POST'])
 @login_required
