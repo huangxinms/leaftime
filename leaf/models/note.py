@@ -30,13 +30,11 @@ class NoteQuery:
         return note
 
     @classmethod
-    @cache('note:get_older_note:{user_id}_{note_id}', 60*60)
     def get_older_note(cls, user_id, note_id):
         note = Note.query.filter(Note.user_id==user_id, Note.id<note_id).order_by('-id').first()
         return note
 
     @classmethod
-    @cache('note:get_newer_note:{user_id}_{note_id}', 60*60)
     def get_newer_note(cls, user_id, note_id):
         note = Note.query.filter(Note.user_id==user_id, Note.id>note_id).order_by('id').first()
         return note
@@ -67,9 +65,14 @@ class Note(db.Model):
         note = cls(user_id, content, time)
         db.session.add(note)
         db.session.commit()
-        mc.delete('note:get_notes_by_author:%s' %user_id)
-        mc.delete('note:get_notes_by_author:%s' %user_id)
+        cls.clear_cache(user_id)
         return note
+
+    @classmethod
+    def clear_cache(cls, user_id=0):
+        mc.delete('note:get_notes_by_author:%s' %user_id)
+        mc.delete('note:get_datenum_by_user:%s' %user_id)
+        mc.delete('note:get_recent_note_by_user:%s' %user_id)
 
     def update(self, content):
         self.content = content
